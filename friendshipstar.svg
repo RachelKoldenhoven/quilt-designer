@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+     width="450px" height="450px" viewBox="0 0 450 450">
+    <script type="text/javascript">
+        window.onload = () => {
+        document.getElementById('poly1').style.fill = 'red';
+        }
+    </script>
+    <style>
+        .group1 {
+            fill: maroon;
+        }
+    </style>
+    <!-- block a -->
+    <polygon id="poly1" fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="0,150 150,0 150,150 "/>
+    <polygon class="group1" stroke="#000000" stroke-miterlimit="10" points="0,150 0,0 150,0 "/>
+    <!-- block b -->
+    <polygon fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="150,0 300,0 150,150 "/>
+    <polygon fill="#fff" stroke="#000000" stroke-miterlimit="10" points="150,150 300,0 300,150 "/>
+    <!-- block c -->
+    <polygon fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="300,0 300,150 450,150 "/>
+    <polygon fill="#fff" stroke="#000000" stroke-miterlimit="10" points="300,0 450,0 450,150 "/>
+    <!-- block d -->
+    <polygon fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="0,150 0,300 150,300 "/>
+    <polygon fill="#fff" stroke="#000000" stroke-miterlimit="10" points="0,150 150,150 150,300 "/>
+    <!-- block e -->
+    <rect x="150" y="150" fill="#e5e5e5" stroke="#000000" stroke-miterlimit="10" width="150" height="150"/>
+    <!-- block f -->
+    <polygon fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="300,150 450,150 450,300 "/>
+    <polygon fill="#fff" stroke="#000000" stroke-miterlimit="10" points="300,150 300,300 450,300 "/>
+    <!-- block g -->
+    <polygon fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="0,300 150,300 150,450 "/>
+    <polygon fill="#fff" stroke="#000000" stroke-miterlimit="10" points="0,300 0,450 150,450 "/>
+    <!-- block h -->
+    <polygon fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="300,300 300,450 150,450 "/>
+    <polygon fill="#fff" stroke="#000000" stroke-miterlimit="10" points="150,300 150,450 300,300 "/>
+    <!-- block i -->
+    <polygon fill="#E5E5e5" stroke="#000000" stroke-miterlimit="10" points="300,300 450,300 300,450 "/>
+    <polygon fill="#fff" stroke="#000000" stroke-miterlimit="10" points="450,450 450,300 300,450 "/>
+</svg>
