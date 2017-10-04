@@ -1,1 +1,3 @@
-document.getElementById("main").innerHTML = "Hello World";
+window.onload = function() {
+  document.getElementById("main").innerHTML = "Hello World";
+};
