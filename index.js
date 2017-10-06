@@ -1,5 +1,5 @@
-import hello from './helloWorld.js';
+import init from './init.js';
 
 window.onload = function() {
-  hello();
+  init();
 };

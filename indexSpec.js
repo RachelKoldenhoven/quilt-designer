@@ -1,21 +1,26 @@
-import hello from './helloWorld.js';
+import init from './init.js';
 
-describe('hello', function () {
+describe('init', function () {
 
-  it('should display hello world', function () {
+  it('should display welcome message', function () {
 
     // setup
     let element = document.createElement('div');
-    element.id = 'main';
+    element.id = 'hello';
     document.body.appendChild(element);
 
+    let files = document.createElement('div');
+    files.id = 'files';
+    document.body.appendChild(files);
+
     // exercise
-    hello();
+    init();
 
     // assert
-    expect(element.innerText).toEqual('Hello World');
+    expect(element.innerText).toEqual('Welcome to Quilt Planner!');
 
     // teardown
     element.remove();
+    files.remove();
   })
 });
