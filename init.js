@@ -11,6 +11,10 @@ function handleFileSelect(evt) {
   // files is a FileList of File objects.
   let output = [];
   let block = files[0];
+  if(block.type !== 'image/svg+xml') {
+    alert("Please choose a file with the extension '.svg'");
+    return;
+  }
   console.log(block);
   output.push('<li><strong>', block.name, '</strong>', ' (', block.type || 'n/a', ') - ',
     block.size, ' bytes, last modified: ',
