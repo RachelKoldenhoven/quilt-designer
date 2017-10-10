@@ -2,6 +2,8 @@ export default function init() {
   document.getElementById('hello').innerHTML = 'Welcome to Quilt Planner!';
 
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+  document.getElementById('colorChoice').addEventListener('change', selectColor, false);
 }
 
 function handleFileSelect(evt) {
@@ -28,7 +30,7 @@ function handleFileSelect(evt) {
       // function to change color of a shape on click
       let shade = function (e) {
         let node = e.target;
-        node.style.fill = 'red';
+        node.style.fill = selectedColor;
         console.log('node: ', node);
       };
       
@@ -53,3 +55,11 @@ function handleFileSelect(evt) {
   document.querySelector('.fileList').innerHTML = '<ul>' + output.join('') + '</ul>';
 }
 
+// color selection
+let selectedColor = '#545454';
+document.getElementById('selectedColor').style.background = selectedColor;
+
+const selectColor = (event) => {
+  selectedColor = '#' + event.target.value;
+  document.getElementById('selectedColor').style.background = selectedColor;
+};

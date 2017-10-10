@@ -1,3 +1,23 @@
+div#main {
+	display: flex;
+	flex-direction: column;
+}
+
+main.container {
+	display: flex;
+}
+
+section.center {
+	padding: 10px;
+}
+
+div.selectedColor {
+	border: 1px black solid;
+	height: 40px;
+	width: 40px;
+	margin: 10px;
+}
+
 #selectedBlock {
 	height: 450px;
 	width: 450px;

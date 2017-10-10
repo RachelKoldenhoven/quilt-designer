@@ -10,13 +10,22 @@
 
 <body>
     <div id="main">
-        <div id="hello"></div>
-        <aside class="fileUpload">
-            <h5>Upload a quilt block file with an '.svg' extension.</h5>
-            <input type="file" name="file" id="files">
-            <output class="fileList"></output>
-        </aside>
-        <article id="selectedBlock"></article>
+        <header id="hello"></header>
+        <main class="container">
+            <aside class="fileUpload">
+                <h5>Upload a quilt block file with an '.svg' extension.</h5>
+                <input type="file" name="file" id="files">
+                <output class="fileList"></output>
+            </aside>
+            <section class="center">
+                <article id="selectedBlock"></article>
+            </section>
+            <aside class="colorPicker">
+                <label for="colorChoice">Enter a hex color code</label>
+                <input type="text" name="colorChoice" id="colorChoice" placeholder="545454">
+                <div class="selectedColor" id="selectedColor"></div>
+            </aside>
+        </main>
     </div>
 </body>
 </html>
