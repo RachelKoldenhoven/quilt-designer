@@ -1,11 +1,8 @@
 export default function init() {
   document.getElementById('hello').innerHTML = 'Welcome to Quilt Planner!';
-
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
   document.getElementById('1').addEventListener('change', selectColor, false);
   document.getElementById('1').addEventListener('click', selectGroup, false);
-
   document.getElementById('addGroup').addEventListener('click', addGroup);
 }
 
@@ -70,7 +67,7 @@ const selectColor = (event) => {
 const addGroup = () => {
   // append group info to DOM
   // change selected group
-  selectedGroup += 1;
+  selectedGroup = parseInt(selectedGroup) + 1;
   let newGroup = document.createElement('div');
   newGroup.innerHTML =
     `<div class="colorGroup">
@@ -86,6 +83,7 @@ const addGroup = () => {
     </div>`;
   document.querySelector('div.groups').appendChild(newGroup);
   document.getElementById(`${selectedGroup}`).addEventListener('change', selectColor, false);
+  document.getElementById(`${selectedGroup}`).addEventListener('click', selectGroup, false);
 };
 
 // select a group to edit
