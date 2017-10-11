@@ -11,15 +11,33 @@ section.center {
 	padding: 10px;
 }
 
-div.selectedColor {
-	border: 1px black solid;
-	height: 40px;
-	width: 40px;
-	margin: 10px;
-}
-
 #selectedBlock {
 	height: 450px;
 	width: 450px;
 	border: 2px black solid;
+}
+
+.colorPicker {
+	flex-grow: 1;
+}
+
+div.colorGroup {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+div.colorGroup h1 {
+	margin: 0;
+}
+
+div.colorInput {
+	display: flex;
+	flex-direction: column;
+}
+
+div.selectedColor {
+	border: 1px black solid;
+	height: 40px;
+	width: 40px;
 }

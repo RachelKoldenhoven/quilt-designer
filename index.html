@@ -20,9 +20,21 @@
                 <article id="selectedBlock"></article>
             </section>
             <aside class="colorPicker">
-                <label for="colorChoice">Enter a hex color code</label>
-                <input type="text" name="colorChoice" id="colorChoice" placeholder="545454">
-                <div class="selectedColor" id="selectedColor"></div>
+                <h3>Color Groups</h3>
+                <div class="groups">
+                    <div class="colorGroup">
+                        <h1>1</h1>
+                        <div class="colorInput">
+                            <label for="1">Enter a hex color code</label>
+                            <input type="text"
+                                   name="colorGroup1"
+                                   id="1"
+                                   placeholder="545454">
+                        </div>
+                        <div class="selectedColor" id="color1"></div>
+                    </div>
+                </div>
+                <button id="addGroup">Add a Group</button>
             </aside>
         </main>
     </div>
