@@ -10,7 +10,6 @@ function handleFileSelect(evt) {
   let files = evt.target.files; // FileList object
 
   // files is a FileList of File objects.
-  let output = [];
   let block = files[0];
 
   // only handle svg files
@@ -18,11 +17,6 @@ function handleFileSelect(evt) {
     alert("Please choose a file with the extension '.svg'");
     return;
   }
-
-  output.push('<li><strong>', block.name, '</strong>', ' (', block.type || 'n/a', ') - ',
-    block.size, ' bytes, last modified: ',
-    block.lastModifiedDate ? block.lastModifiedDate.toLocaleDateString() : 'n/a',
-    '</li>');
 
   let reader = new FileReader;
   reader.onload = (function (theFile) {
@@ -51,8 +45,6 @@ function handleFileSelect(evt) {
   })(block);
 
   reader.readAsText(block);
-
-  document.querySelector('.fileList').innerHTML = '<ul>' + output.join('') + '</ul>';
 }
 
 // color selection
