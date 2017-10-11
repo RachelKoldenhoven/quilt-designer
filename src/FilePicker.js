@@ -1,6 +1,6 @@
 export default class FilePicker {
-    constructor(parentEl) {
-        this.parentEl = parentEl;
+    constructor() {
+        this.el = document.createElement('div');
     }
 
     handleFileSelect(evt) {
@@ -18,17 +18,16 @@ export default class FilePicker {
     }
 
     render() {
-        const el = document.createElement('div');
-        el.innerHTML =
+        this.el.innerHTML =
             `<h5>Upload a quilt block file with an '.svg' extension.</h5>
             <input type="file">`;
 
         // Grab elements
-        this.filesEl = el.querySelector('input[type=file]');
+        this.filesEl = this.el.querySelector('input[type=file]');
 
         // Attach event handlers
         this.filesEl.addEventListener('change', e => this.handleFileSelect(e), false);
 
-        return el;
+        return this.el;
     }
 }
