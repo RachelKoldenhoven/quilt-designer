@@ -5,12 +5,12 @@
     <title>Quilt Planner</title>
     <link rel="stylesheet" type="text/css" href="index.css">
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <script type="module" src="index.js"></script>
+    <script type="module" src="init.js"></script>
 </head>
 
 <body>
     <div id="main">
-        <header id="hello"></header>
+        <header>Welcome to Quilt Planner!</header>
         <main class="container">
             <aside class="fileUpload">
                 <h5>Upload a quilt block file with an '.svg' extension.</h5>
@@ -22,17 +22,6 @@
             <aside class="colorPicker">
                 <h3>Color Groups</h3>
                 <div class="groups">
-                    <div class="colorGroup">
-                        <h1>1</h1>
-                        <div class="colorInput">
-                            <label for="1">Enter a hex color code</label>
-                            <input type="text"
-                                   name="colorGroup1"
-                                   id="1"
-                                   placeholder="545454">
-                        </div>
-                        <div class="selectedColor" id="color1"></div>
-                    </div>
                 </div>
                 <button id="addGroup">Add a Group</button>
             </aside>

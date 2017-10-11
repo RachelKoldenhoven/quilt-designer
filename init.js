@@ -1,95 +1,102 @@
-export default function init() {
-  document.getElementById('hello').innerHTML = 'Welcome to Quilt Planner!';
-
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
-  document.getElementById('1').addEventListener('change', selectColor, false);
-  document.getElementById('1').addEventListener('click', selectGroup, false);
-
-  document.getElementById('addGroup').addEventListener('click', addGroup);
-}
-
-let selectedGroup = 1;
-let color1 = '#545454';
-document.getElementById('color1').style.background = color1;
-let selectedColor = color1;
-
-function handleFileSelect(evt) {
-  let files = evt.target.files; // FileList object
-
-  // files is a FileList of File objects.
-  let block = files[0];
-
-  // only handle svg files
-  if(block.type !== 'image/svg+xml') {
-    alert("Please choose a file with the extension '.svg'");
-    return;
-  }
-
-  let reader = new FileReader;
-  reader.onload = (function (theFile) {
-    return function (e) {
-      // add shapes to a group
-      let group =  (e) => {
-        let node = e.target;
-        node.setAttribute('class', selectedGroup);
-        node.style.fill = selectedColor;
-      };
-      
-      let rawBlock = e.target.result;
-
-      let parser = new DOMParser();
-      let parsedBlock = parser.parseFromString(rawBlock, "image/svg+xml");
-      // childNodes are [comment, <!DOCTYPE svg>, svg#Layer_1]
-      console.log(parsedBlock.childNodes[2]);
-      for(let i = 1; i < parsedBlock.childNodes[2].children.length; i++) {
-        parsedBlock.childNodes[2].children[i].addEventListener('click', group);
-      }
-      // returns a SVGDocument
-
-      let svg = document.getElementById('selectedBlock');
-      svg.appendChild(parsedBlock.documentElement);
-    };
-  })(block);
-
-  reader.readAsText(block);
-}
-
-// color selection
-const selectColor = (event) => {
-  selectedColor = '#' + event.target.value;
-  let shapes = document.getElementsByClassName(selectedGroup);
-  console.log(shapes);
-  for(let i = 0; i< shapes.length; i++) {
-    shapes[i].style.fill = selectedColor;
-  }
-  document.getElementById(`color${selectedGroup}`).style.background = selectedColor;
+// Constants
+const COLORABLE_ELEMENTS = {
+  "polygon": true,
+  "rect": true
 };
+
+// Mutable app state
+const state = {
+  groups: [],
+  selectedGroupIdx: -1
+}
+
+// Grab elements
+const groupsEl = document.querySelector('div.groups');
+const filesEl = document.getElementById('files');
+const groupBtn = document.getElementById('addGroup');
+const svg = document.getElementById('selectedBlock');
 
 // add shape/color groups
 const addGroup = () => {
+  const currentGroupIdx = state.selectedGroupIdx + 1;
+  const groupObj = {
+    color: '#545454'
+  }
+
   // append group info to DOM
-  // change selected group
-  selectedGroup += 1;
-  let newGroup = document.createElement('div');
-  newGroup.innerHTML =
-    `<div class="colorGroup">
-        <h1>${selectedGroup}</h1>
-        <div class="colorInput">
-            <label for="${selectedGroup}">Enter a hex color code</label>
-            <input type="text" 
-                   name="${selectedGroup}" 
-                   id="${selectedGroup}" 
-                   placeholder="545454">
-        </div>
-        <div class="selectedColor" id="color${selectedGroup}"></div>
+  const groupEl = document.createElement('div');
+  groupEl.innerHTML = `<div class="colorGroup">
+      <h1>${currentGroupIdx+1}</h1>
+      <div class="colorInput">
+          <label>Enter a hex color code</label>
+          <input type="text" placeholder="545454">
+      </div>
+      <div class="selectedColor"></div>
     </div>`;
-  document.querySelector('div.groups').appendChild(newGroup);
-  document.getElementById(`${selectedGroup}`).addEventListener('change', selectColor, false);
+
+  // Grab elements
+  const colorInput = groupEl.querySelector('input');
+  const colorSwab = groupEl.querySelector('.selectedColor');
+  
+  // Define event handlers
+  const selectGroup = () => {
+    console.log("selected group: ", currentGroupIdx);
+    state.selectedGroupIdx = currentGroupIdx;
+  };
+  const selectColor = () => {
+    const currentGroup = state.groups[state.selectedGroupIdx];
+    currentGroup.color = '#' + colorInput.value;
+    const shapes = document.getElementsByClassName(state.selectedGroupIdx);
+    console.log(shapes);
+    for(let shape of shapes) {
+      shape.style.fill = currentGroup.color;
+    }
+    colorSwab.style.background = currentGroup.color;
+  };
+
+  // Hook up listeners
+  colorInput.addEventListener('change', selectColor, false);
+  colorInput.addEventListener('click', selectGroup, false);
+
+  // change selected group
+  state.groups.push(groupObj);
+  state.selectedGroupIdx = currentGroupIdx;
+  groupsEl.appendChild(groupEl);
 };
 
-// select a group to edit
-const selectGroup = (event) => {
-  console.log("selected group: ", event.target);
-  selectedGroup = event.target.id;
-};
+const handleFileSelect = (evt) => {
+  const block = evt.target.files[0];
+  if (block.type !== 'image/svg+xml') {
+    alert("Please choose a file with the extension '.svg'");
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const parsedBlock = new DOMParser().parseFromString(e.target.result, "image/svg+xml");
+    const addListener = (el) => {
+      if (COLORABLE_ELEMENTS[el.nodeName]) {
+        // add shapes to a group
+        el.addEventListener('click', () => {
+          el.setAttribute('class', state.selectedGroupIdx);
+          el.style.fill = state.groups[state.selectedGroupIdx].color;
+        });
+      }
+      for (let child of el.childNodes) {
+        addListener(child);
+      }
+    }
+    addListener(parsedBlock);
+
+    svg.innerHTML = '';
+    svg.appendChild(parsedBlock.documentElement);
+  };
+  reader.readAsText(block);
+}
+
+// Hook up listeners
+filesEl.addEventListener('change', handleFileSelect, false);
+groupBtn.addEventListener('click', addGroup);
+
+// Add the initial group
+addGroup();
+
