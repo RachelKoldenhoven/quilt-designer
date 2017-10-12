@@ -38,7 +38,8 @@ export default class BlockComponent {
   onColorGroupChange(event) {
     this.selectedGroup = event.group;
 
-    // TODO: is there a better way?
+    // TODO: control color groups through css classes, so exported SVG looks as one would expect
+    // https://stackoverflow.com/questions/1720320/how-to-dynamically-create-css-class-in-javascript-and-apply
     let shapes = document.getElementsByClassName(this.selectedGroup.name);
     for(let shape of shapes) {
       shape.style.fill = this.selectedGroup.color;
