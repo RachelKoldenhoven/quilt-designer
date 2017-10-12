@@ -11,7 +11,7 @@ section.center {
 	padding: 10px;
 }
 
-#selectedBlock {
+.selectedBlock {
 	height: 450px;
 	width: 450px;
 	border: 2px black solid;

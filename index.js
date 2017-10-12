@@ -1,5 +1,3 @@
-import init from './init.js';
+import App from './components/App.js';
 
-window.onload = function() {
-  init();
-};
+document.body.appendChild(new App().render());
