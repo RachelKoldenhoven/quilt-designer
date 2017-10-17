@@ -15,11 +15,9 @@ export default class App {
     // Create my HTML
     this.element = document.createElement('div');
     this.element.innerHTML = `
-    <div id="main">
-        <header id="hello"></header>
-        <main class="container">
-        </main>
-    </div>`;
+      <main class="container">
+      </main>
+      `;
 
     // Obtain references to elements in HTML
     this.mainContainer = this.element.querySelector('.container');

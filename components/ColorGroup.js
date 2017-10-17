@@ -12,7 +12,7 @@ export default class ColorGroup {
                  id="${this.name}"
                  placeholder="545454">
       </div>
-      <div class="selectedColor" id="color1"></div>
+      <div class="selectedColor"></div>
       `;
     this.element.className = 'colorGroup';
     this.colorInputEl = this.element.querySelector('input');

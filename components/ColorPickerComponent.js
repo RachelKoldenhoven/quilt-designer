@@ -6,11 +6,11 @@ export default class ColorPickerComponent {
 
     this.element = document.createElement('aside');
     this.element.innerHTML = `
-        <h3>Color Groups</h3>
-        <div class="groups">
-        </div>
-        <button>Add a Group</button>
-        `;
+      <h3>Color Groups</h3>
+      <div class="groups">
+      </div>
+      <button>Add a Group</button>
+      `;
     this.element.className = 'colorPicker';
     this.addGroupBtn = this.element.querySelector('button');
     this.groupContainer = this.element.querySelector('.groups');
