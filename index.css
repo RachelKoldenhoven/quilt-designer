@@ -12,6 +12,11 @@ section.center {
 	border: 2px black solid;
 }
 
+.selectedBlock svg {
+	height: 450px;
+	width: 450px;
+}
+
 .colorPicker {
 	flex-grow: 1;
 }
