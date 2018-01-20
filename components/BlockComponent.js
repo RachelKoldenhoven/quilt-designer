@@ -12,9 +12,14 @@ export default class BlockComponent {
         this.element = document.createElement('section');
         this.element.innerHTML = `
             <article class="selectedBlock"></article>
+            <div class="blockActions">
+                <button>Save to My Blocks</button>
+            </div>
             `;
         this.element.className = 'center';
         this.blockContainer = this.element.querySelector('.selectedBlock');
+        this.saveBlockBtn = this.element.querySelector('button');
+        this.saveBlockBtn.addEventListener('click', e => this.handleBlockSave(e), false);
     }
 
     setBlock(block) {
@@ -45,6 +50,14 @@ export default class BlockComponent {
         for (let shape of shapes) {
             shape.style.fill = this.selectedGroup.color;
         }
+    }
+
+    handleBlockSave() {
+        let savedBlock = this.element.querySelector('.selectedBlock svg');
+        EventService.dispatch({
+            type: 'save_block',
+            block: savedBlock
+        });
     }
 
     render() {

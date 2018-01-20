@@ -41,3 +41,13 @@ div.selectedColor {
     height: 40px;
     width: 40px;
 }
+
+div.myBlocks {
+    display: flex;
+    flex-direction: column;
+}
+
+div.myBlocks svg {
+    height: 100px;
+    width: 100px;
+}
