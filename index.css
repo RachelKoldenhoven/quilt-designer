@@ -1,43 +1,43 @@
 main.container {
-	display: flex;
+    display: flex;
 }
 
 section.center {
-	padding: 10px;
+    padding: 10px;
 }
 
 .selectedBlock {
-	height: 450px;
-	width: 450px;
-	border: 2px black solid;
+    height: 450px;
+    width: 450px;
+    border: 2px black solid;
 }
 
 .selectedBlock svg {
-	height: 450px;
-	width: 450px;
+    height: 450px;
+    width: 450px;
 }
 
 .colorPicker {
-	flex-grow: 1;
+    flex-grow: 1;
 }
 
 div.colorGroup {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 div.colorGroup h1 {
-	margin: 0;
+    margin: 0;
 }
 
 div.colorInput {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 div.selectedColor {
-	border: 1px black solid;
-	height: 40px;
-	width: 40px;
+    border: 1px black solid;
+    height: 40px;
+    width: 40px;
 }
