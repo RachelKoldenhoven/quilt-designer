@@ -12,7 +12,20 @@ export default class MyBlocksComponent {
     }
 
     addToMyBlocks(event) {
+        this.addClickHandler(event.block);
         this.myBlocks.appendChild(event.block);
+    }
+
+    // click to select block back to design area
+    addClickHandler(block) {
+        block.addEventListener('click', e => this.editBlock(e.currentTarget));
+    }
+
+    editBlock(block) {
+        EventService.dispatch({
+            type: 'edit_block',
+            block: block
+        })
     }
 
     render() {

@@ -9,6 +9,7 @@ const ClickableShapes = {
 export default class BlockComponent {
     constructor() {
         EventService.addEventListener('ColorGroup_change', e => this.onColorGroupChange(e));
+        EventService.addEventListener('edit_block', e => this.setBlock(e.block));
         this.element = document.createElement('section');
         this.element.innerHTML = `
             <article class="selectedBlock"></article>
@@ -53,11 +54,13 @@ export default class BlockComponent {
     }
 
     handleBlockSave() {
-        let savedBlock = this.element.querySelector('.selectedBlock svg');
+        const savedBlock = this.element.querySelector('.selectedBlock svg');
+        const blockClone = savedBlock.cloneNode(true);
         EventService.dispatch({
             type: 'save_block',
-            block: savedBlock
+            block: blockClone
         });
+        this.blockContainer.removeChild(savedBlock);
     }
 
     render() {
