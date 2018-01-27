@@ -24,8 +24,12 @@ export default class BlockComponent {
     }
 
     setBlock(block) {
-        this.addClickHandler(block);
-        this.blockContainer.appendChild(block);
+        if (this.element.querySelector('.selectedBlock svg')) {
+            alert('Block editing area must be empty to edit a block.  Please save the current block before editing another one.')
+        } else {
+            this.addClickHandler(block);
+            this.blockContainer.appendChild(block);
+        }
     }
 
     addClickHandler(element) {
