@@ -14,13 +14,16 @@ export default class BlockComponent {
         this.element.innerHTML = `
             <article class="selectedBlock"></article>
             <div class="blockActions">
-                <button>Save to My Blocks</button>
+                <button class="save">Save to My Blocks</button>
+                <button class="draw">Draw Quilt</button>
             </div>
             `;
         this.element.className = 'center';
         this.blockContainer = this.element.querySelector('.selectedBlock');
-        this.saveBlockBtn = this.element.querySelector('button');
+        this.saveBlockBtn = this.element.querySelector('.save');
+        this.drawQuiltBtn = this.element.querySelector('.draw');
         this.saveBlockBtn.addEventListener('click', e => this.handleBlockSave(e), false);
+        this.drawQuiltBtn.addEventListener('click', e => this.renderQuilt(e));
     }
 
     setBlock(block) {
@@ -65,6 +68,15 @@ export default class BlockComponent {
             block: blockClone
         });
         this.blockContainer.removeChild(savedBlock);
+    }
+
+    renderQuilt() {
+        const blockToDraw = this.element.querySelector('.selectedBlock svg');
+        const blockClone = blockToDraw.cloneNode(true);
+        EventService.dispatch({
+            type: 'render_quilt',
+            block: blockClone
+        });
     }
 
     render() {

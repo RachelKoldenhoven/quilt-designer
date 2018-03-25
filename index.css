@@ -51,3 +51,18 @@ div.myBlocks svg {
     height: 100px;
     width: 100px;
 }
+
+div.quiltPlanBlock svg {
+    height: 100px;
+    width: 100px;
+}
+
+div.myQuilt {
+    display: flex;
+    flex-direction: column;
+}
+
+div.blockRow {
+    display: flex;
+    height: 100px;
+}
