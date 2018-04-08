@@ -3,6 +3,8 @@ import EventService from '../services/EventService.js';
 export default class QuiltPlanComponent {
     constructor() {
         EventService.addEventListener('render_quilt', e => this.renderQuilt(e));
+        EventService.addEventListener('edit_block', e => this.setChosenBlock(e));
+        EventService.addEventListener('set_block', e => this.setChosenBlock(e));
         this.element = document.createElement('div');
         this.element.innerHTML = `
             <h3>Quilt Plan</h3>
@@ -24,6 +26,10 @@ export default class QuiltPlanComponent {
         this.down.addEventListener('change', e => this.setDown(e));
     }
 
+    setChosenBlock(e) {
+        this.chosenBlock = e.block;
+    }
+
     setAcross(e) {
         this.blocksAcross = e.target.value;
     }
@@ -33,7 +39,10 @@ export default class QuiltPlanComponent {
     }
 
     changeBlock(e) {
-        console.log('clicked', e);
+        const blockToReplace = e.target.parentNode.parentElement;
+        const parent = blockToReplace.parentElement;
+        const replacementBlock = this.chosenBlock.cloneNode(true);
+        parent.replaceChild(replacementBlock, blockToReplace);
     }
 
     renderQuilt(event) {

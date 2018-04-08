@@ -32,7 +32,15 @@ export default class BlockComponent {
         } else {
             this.addClickHandler(block);
             this.blockContainer.appendChild(block);
+            this.setBlockEvent(block);
         }
+    }
+
+    setBlockEvent(block) {
+        EventService.dispatch({
+            type: 'set_block',
+            block: block
+        });
     }
 
     addClickHandler(element) {
