@@ -32,22 +32,24 @@ export default class QuiltPlanComponent {
         this.blocksDown = e.target.value;
     }
 
+    changeBlock(e) {
+        console.log('clicked', e);
+    }
+
     renderQuilt(event) {
         const blockContainer = document.createElement('div');
         blockContainer.className = 'quiltPlanBlock';
         const block = event.block;
         blockContainer.appendChild(block);
-        const row = document.createElement('div');
-        row.className = 'blockRow';
-        let i = 0;
-        while (i < this.blocksAcross) {
-            row.appendChild(blockContainer.cloneNode(true));
-            i++;
-        }
-        let x = 0;
-        while (x < this.blocksDown) {
-            this.myQuilt.appendChild(row.cloneNode(true));
-            x++;
+        for (let i = 0; i < this.blocksDown; i++) {
+            const row = document.createElement('div');
+            row.className = 'blockRow';
+            for (let x = 0; x < this.blocksAcross; x++) {
+                let rowBlock = blockContainer.cloneNode(true);
+                rowBlock.addEventListener('click', e => this.changeBlock(e));
+                row.appendChild(rowBlock);
+                this.myQuilt.appendChild(row);
+            }
         }
     }
 
