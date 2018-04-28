@@ -1,3 +1,5 @@
+import EventService from '../services/EventService.js';
+
 export default class FilePicker {
     constructor() {
         this.element = document.createElement('aside');
@@ -17,7 +19,8 @@ export default class FilePicker {
     }
 
     generateBlockID () {
-            return 'id-' + Math.random().toString(36).substr(2, 16);
+        // TODO: Use a UUID
+        return 'id-' + Math.random().toString(36).substr(2, 16);
     }
 
     onFileLoaded(event) {
@@ -25,7 +28,10 @@ export default class FilePicker {
         let parsedBlock = parser.parseFromString(event.target.result, "image/svg+xml");
         const blockID = this.generateBlockID();
         parsedBlock.documentElement.setAttribute('id', blockID);
-        if (this.onBlockSelected) this.onBlockSelected(parsedBlock.documentElement);
+        EventService.dispatch({
+            type: 'block_file_loaded',
+            block: parsedBlock.documentElement
+        });
     }
 
     render() {

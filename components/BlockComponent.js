@@ -9,7 +9,7 @@ const ClickableShapes = {
 export default class BlockComponent {
     constructor() {
         EventService.addEventListener('ColorGroup_change', e => this.onColorGroupChange(e));
-        EventService.addEventListener('edit_block', e => this.setBlock(e.block));
+        EventService.addEventListener('block_selected', e => this.setBlock(e.block));
         this.element = document.createElement('section');
         this.element.innerHTML = `
             <article class="selectedBlock"></article>
@@ -27,20 +27,12 @@ export default class BlockComponent {
     }
 
     setBlock(block) {
-        if (this.element.querySelector('.selectedBlock svg')) {
-            alert('Block editing area must be empty to edit a block.  Please save the current block before editing another one.')
-        } else {
-            this.addClickHandler(block);
-            this.blockContainer.appendChild(block);
-            this.setBlockEvent(block);
+        const savedBlock = this.element.querySelector('.selectedBlock svg');
+        if (savedBlock) {
+            this.blockContainer.removeChild(savedBlock);
         }
-    }
-
-    setBlockEvent(block) {
-        EventService.dispatch({
-            type: 'set_block',
-            block: block
-        });
+        this.addClickHandler(block);
+        this.blockContainer.appendChild(block);
     }
 
     addClickHandler(element) {
@@ -70,10 +62,9 @@ export default class BlockComponent {
 
     handleBlockSave() {
         const savedBlock = this.element.querySelector('.selectedBlock svg');
-        const blockClone = savedBlock.cloneNode(true);
         EventService.dispatch({
-            type: 'save_block',
-            block: blockClone
+            type: 'update_block',
+            block: savedBlock.cloneNode(true)
         });
         this.blockContainer.removeChild(savedBlock);
     }

@@ -13,9 +13,6 @@ export default class App {
         this.myBlocksComponent = new MyBlocksComponent();
         this.quiltPlanComponent = new QuiltPlanComponent();
 
-        // Wire up child event handlers
-        this.filePicker.onBlockSelected = block => this.onBlockSelected(block);
-
         // Create my HTML
         this.element = document.createElement('div');
         this.element.innerHTML = `
@@ -36,10 +33,6 @@ export default class App {
         this.mainContainer.appendChild(this.blockComponent.render());
         this.mainContainer.appendChild(this.colorPickerComponent.render());
         this.quiltPan.appendChild(this.quiltPlanComponent.render());
-    }
-
-    onBlockSelected(block) {
-        this.blockComponent.setBlock(block);
     }
 
     render() {

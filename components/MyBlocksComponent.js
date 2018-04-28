@@ -2,7 +2,8 @@ import EventService from '../services/EventService.js';
 
 export default class MyBlocksComponent {
     constructor() {
-        EventService.addEventListener('save_block', e => this.addToMyBlocks(e));
+        EventService.addEventListener('update_block', e => this.updateBlock(e.block));
+        EventService.addEventListener('block_file_loaded', e => this.addToMyBlocks(e.block));
         this.element = document.createElement('div');
         this.element.innerHTML = `
         <p>My Blocks</p>
@@ -11,9 +12,20 @@ export default class MyBlocksComponent {
         this.myBlocks = this.element.querySelector('.myBlocks');
     }
 
-    addToMyBlocks(event) {
-        this.addClickHandler(event.block);
-        this.myBlocks.appendChild(event.block);
+    updateBlock(newBlock) {
+        this.addClickHandler(newBlock);
+        let blocks = this.myBlocks.childNodes;
+        let blocksArray = [...blocks];
+        for(let listBlock of blocksArray) {
+            if(listBlock.id === newBlock.id) {
+                this.myBlocks.replaceChild(newBlock, listBlock);
+            }
+        }
+    }
+
+    addToMyBlocks(block) {
+        this.addClickHandler(block);
+        this.myBlocks.appendChild(block);
     }
 
     // click to select block back to design area
@@ -23,8 +35,8 @@ export default class MyBlocksComponent {
 
     editBlock(block) {
         EventService.dispatch({
-            type: 'edit_block',
-            block: block
+            type: 'block_selected',
+            block: block.cloneNode(true)
         })
     }
 

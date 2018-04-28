@@ -3,8 +3,7 @@ import EventService from '../services/EventService.js';
 export default class QuiltPlanComponent {
     constructor() {
         EventService.addEventListener('render_quilt', e => this.renderQuilt(e));
-        EventService.addEventListener('edit_block', e => this.setChosenBlock(e));
-        EventService.addEventListener('set_block', e => this.setChosenBlock(e));
+        EventService.addEventListener('block_selected', e => this.setChosenBlock(e));
         this.element = document.createElement('div');
         this.element.innerHTML = `
             <h3>Quilt Plan</h3>
