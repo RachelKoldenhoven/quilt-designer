@@ -2,8 +2,11 @@ import EventService from '../services/EventService.js';
 
 export default class QuiltPlanComponent {
     constructor() {
+        // Event bus
         EventService.addEventListener('render_quilt', e => this.renderQuilt(e));
         EventService.addEventListener('block_selected', e => this.setChosenBlock(e));
+
+        // Render
         this.element = document.createElement('div');
         this.element.innerHTML = `
             <h3>Quilt Plan</h3>
@@ -16,13 +19,22 @@ export default class QuiltPlanComponent {
                 <input type="number" min="1" max="12" name="down">            
             </label>
             <div class="myQuilt"></div>
+            <button class="downloadBtn">Generate My Quilt svg</button>
+            <a href="javascript:void(0)" style="visibility: hidden" class="downloadLink">Download SVG</a>
             `;
         this.element.className = 'quiltPlanComp';
+
+        // Get references
         this.across = this.element.querySelector('input[name="across"]');
         this.down = this.element.querySelector('input[name="down"]');
         this.myQuilt = this.element.querySelector('.myQuilt');
+        this.downloadBtn = this.element.querySelector('.downloadBtn');
+        this.downloadLink = this.element.querySelector('.downloadLink');
+
+        // Hook up listeners
         this.across.addEventListener('change', e => this.setAcross(e));
         this.down.addEventListener('change', e => this.setDown(e));
+        this.downloadBtn.addEventListener('click', () => this.startDownload());
     }
 
     setChosenBlock(e) {
@@ -59,6 +71,14 @@ export default class QuiltPlanComponent {
                 this.myQuilt.appendChild(row);
             }
         }
+    }
+
+    startDownload() {
+        const text = this.myQuilt.innerHTML;
+        const file = new Blob([text], {type: 'image/svg+xml'});
+        this.downloadLink.href = URL.createObjectURL(file);
+        this.downloadLink.download = name;
+        this.downloadLink.style.visibility = "visible";
     }
 
     render() {
