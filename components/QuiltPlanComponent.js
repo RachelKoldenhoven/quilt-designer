@@ -74,7 +74,22 @@ export default class QuiltPlanComponent {
     }
 
     startDownload() {
-        const text = this.myQuilt.innerHTML;
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        for (let y = 0; y < this.blocksDown; y++) { // TODO: iterate over divs, not blocks down
+            const row = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            row.setAttributeNS("http://www.w3.org/2000/svg", "transform", `translate(0,${y * 200})`);
+            for (let x = 0; x < this.blocksAcross; x++) { // TODO: iterate over divs, not blocks down
+                const cell = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                cell.setAttributeNS("http://www.w3.org/2000/svg", "transform", `translate(${x * 200},0)`);
+
+                // TODO: dump contents of SVG into cell
+
+                row.appendChild(cell);
+            }
+            svg.appendChild(row);
+        }
+
+        const text = svg.outerHTML;
         const file = new Blob([text], {type: 'image/svg+xml'});
         this.downloadLink.href = URL.createObjectURL(file);
         this.downloadLink.download = name;
